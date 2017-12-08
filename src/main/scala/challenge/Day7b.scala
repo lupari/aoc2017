@@ -1,7 +1,5 @@
 package challenge
 
-import java.util.Optional
-
 import base.Challenge
 
 import scala.io.Source
@@ -59,19 +57,19 @@ object Day7b extends Challenge {
   }
 
 
-  def findImbalanced(program: Program): Optional[Program] = {
+  def findImbalanced(program: Program): Option[Program] = {
     val stacks = program.getChildren.groupBy(c => c.getTotalWeight)
     if (stacks.size == 1) {
-      Optional.empty()
+      Option.empty
     } else {
       val parent: Program = stacks.find(s => s._2.size == 1).get._2.head
       val badChild = findImbalanced(parent)
-      if (badChild.isPresent) {
+      if (badChild.isDefined) {
         badChild
       } else {
         val siblingWeight = stacks.find(s => s._2.size > 1).get._2.head.getTotalWeight
         val diff = siblingWeight - parent.getTotalWeight + parent.weight
-        Optional.of(Program(parent.name, diff, ""))
+        Option(Program(parent.name, diff, ""))
       }
     }
   }
@@ -80,7 +78,7 @@ object Day7b extends Challenge {
     val input: List[String] = Source.fromResource("day7.txt").getLines().toList
     val tree = buildTree(input)
     weigh(tree)
-    println(findImbalanced(tree).get().weight)
+    println(findImbalanced(tree).get.weight)
 
   }
 
