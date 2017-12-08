@@ -13,21 +13,22 @@ object Day8 extends Challenge {
 
     private val _amount = args.dropWhile(c => !c.isDigit && !c.equals('-')).takeWhile(c => c.isDigit || c.equals('-'))
     private val _direction = if (args.contains("inc")) 1 else -1
-    private val _condPart = args.split(" if ").last.split(" ")
 
+    private val cond = args.split(" if ").last.split(" ")
     private val dest = args.takeWhile(c => !c.isWhitespace)
     private val n = _amount.toInt * _direction
-    private val condition: (String, String, Int) = (_condPart(0), _condPart(1), _condPart(2).toInt)
 
-    def exec(): Unit = condition match {
-      case (r, "<", v) => if (registry(r) < v) registry(dest) += n
-      case (r, ">", v) => if (registry(r) > v) registry(dest) += n
-      case (r, "<=", v) => if (registry(r) <= v) registry(dest) += n
-      case (r, ">=", v) => if (registry(r) >= v) registry(dest) += n
-      case (r, "==", v) => if (registry(r) == v) registry(dest) += n
-      case (r, "!=", v) => if (registry(r) != v) registry(dest) += n
-      case _ => println("unknown cmd " + condition)
+    private val condFn = cond(1) match {
+      case "<" => (r: Int, v: Int) => {r < v}
+      case ">" => (r: Int, v: Int) => {r > v}
+      case "<=" => (r: Int, v: Int) => {r <= v}
+      case ">=" => (r: Int, v: Int) => {r >= v}
+      case "==" => (r: Int, v: Int) => {r == v}
+      case "!=" => (r: Int, v: Int) => {r != v}
     }
+
+    def exec(): Unit = if (condFn(registry(cond(0)), cond(2).toInt)) registry(dest) += n
+
   }
 
   override def run(): Unit = {

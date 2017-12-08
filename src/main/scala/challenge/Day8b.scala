@@ -33,9 +33,8 @@ object Day8b extends Challenge {
       case "!=" => (r: Int, v: Int) => {r != v}
     }
 
-    def exec(): Unit = {
-      if (condFn(registry(cond(0))._1, cond(2).toInt)) incRegistry(dest, n)
-    }
+    def exec(): Unit = if (condFn(registry(cond(0))._1, cond(2).toInt)) incRegistry(dest, n)
+
   }
 
   override def run(): Unit = {
