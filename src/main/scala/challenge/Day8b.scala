@@ -23,16 +23,16 @@ object Day8b extends Challenge {
 
     private val dest = args.takeWhile(c => !c.isWhitespace)
     private val n = _amount.toInt * _direction
-    private val cond: (String, String, Int) = (_condPart(0), _condPart(1), _condPart(2).toInt)
+    private val condition: (String, String, Int) = (_condPart(0), _condPart(1), _condPart(2).toInt)
 
-    def exec(): Unit = cond match {
+    def exec(): Unit = condition match {
       case (r, "<", v) => if (registry(r)._1 < v) incRegistry(dest, n)
       case (r, ">", v) => if (registry(r)._1 > v) incRegistry(dest, n)
       case (r, "<=", v) => if (registry(r)._1 <= v) incRegistry(dest, n)
       case (r, ">=", v) => if (registry(r)._1 >= v) incRegistry(dest, n)
       case (r, "==", v) => if (registry(r)._1 == v) incRegistry(dest, n)
       case (r, "!=", v) => if (registry(r)._1 != v) incRegistry(dest, n)
-      case _ => println("unknown cmd " + cond)
+      case _ => println("unknown cmd " + condition)
     }
   }
 
