@@ -2,12 +2,14 @@ package challenge
 
 import base.Challenge
 
+import scala.annotation.tailrec
 import scala.io.Source
 
 object Day9b extends Challenge {
 
   def readStream(xs: List[Char]): Int = {
 
+    @tailrec
     def accumulator(xs: List[Char], acc: Int, garbage: Boolean): Int = xs match {
       case h :: t =>
         if (garbage) h match {
