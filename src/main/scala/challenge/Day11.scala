@@ -8,18 +8,27 @@ import scala.io.Source
 object Day11 extends Challenge {
 
   case class Delta(x: Int, y: Int, name: String)
+
   case class Point(x: Int, y: Int) {
     def +(delta: Delta): Point = Point(x + delta.x, y + delta.y)
-    def distance(p: Point): Int = {
-      List(math.abs(x - p.x), math.abs(y - p.y)).max
-    }
+
+    def distance(p: Point): Int =
+      if (x * y < 0) math.abs(x - p.x) + math.abs(y - p.x)
+      else List(math.abs(x - p.x), math.abs(y - p.y)).max
   }
+
   def X = Point(0, 0)
+
   def N = Delta(0, 1, "n")
+
   def NE = Delta(1, 1, "ne")
+
   def SE = Delta(1, -1, "se")
+
   def S = Delta(0, -1, "s")
+
   def SW = Delta(-1, -1, "sw")
+
   def NW = Delta(-1, 1, "nw")
 
   def DIRECTIONS: Map[String, Delta] = List(N, NE, SE, S, SW, NW).map(d => (d.name, d)).toMap
@@ -29,8 +38,8 @@ object Day11 extends Challenge {
     @tailrec
     def accumulator(xs: List[String], acc: Point): Point = xs match {
       case h :: t if DIRECTIONS.contains(h) =>
-        val dir = DIRECTIONS(h)
-        accumulator(t, acc + dir)
+        val next = acc + DIRECTIONS(h)
+        accumulator(t, next)
       case _ => acc
     }
 

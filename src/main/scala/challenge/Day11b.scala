@@ -10,10 +10,11 @@ object Day11b extends Challenge {
   case class Delta(x: Int, y: Int, name: String)
   case class Point(x: Int, y: Int) {
     def +(delta: Delta): Point = Point(x + delta.x, y + delta.y)
-    def distance(p: Point): Int = {
-      List(math.abs(x - p.x), math.abs(y - p.y)).max
-    }
+    def distance(p: Point): Int =
+      if (x * y < 0) math.abs(x - p.x) + math.abs(y - p.y)
+      else List(math.abs(x - p.x), math.abs(y - p.y)).max
   }
+
   def X = Point(0, 0)
   def N = Delta(0, 1, "n")
   def NE = Delta(1, 1, "ne")
@@ -31,8 +32,8 @@ object Day11b extends Challenge {
     @tailrec
     def accumulator(xs: List[String], farthest: Point, acc: Point): Point = xs match {
       case h :: t if DIRECTIONS.contains(h) =>
-        val dir = DIRECTIONS(h)
-        accumulator(t, getFarthest(acc + dir, farthest), acc + dir)
+        val next = acc + DIRECTIONS(h)
+        accumulator(t, getFarthest(next, farthest), next)
       case _ => farthest
     }
 

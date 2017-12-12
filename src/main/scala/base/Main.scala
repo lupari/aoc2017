@@ -30,6 +30,8 @@ object Main extends App {
       case "day10b" => Day10b.run()
       case "day11" => Day11.run()
       case "day11b" => Day11b.run()
+      case "day12" => Day12.run()
+      case "day12b" => Day12b.run()
       case _ => println("not found")
     }
 

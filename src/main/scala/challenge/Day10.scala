@@ -11,7 +11,7 @@ object Day10 extends Challenge {
     def hash(xs: Vector[Int], pos: Int, l: Int): Vector[Int] = l match {
       case x if pos + x >= xs.length =>
         val overflow = pos + x - xs.length
-        val underflow = xs.size - pos
+        val underflow = xs.length - pos
         val seg = (xs.takeRight(underflow) ++ xs.take(overflow)).reverse
         seg.takeRight(overflow) ++ xs.slice(overflow, xs.length - underflow) ++ seg.take(underflow)
       case _ => xs.take(pos) ++ xs.slice(pos, pos + l).reverse ++ xs.takeRight(xs.length - pos - l)

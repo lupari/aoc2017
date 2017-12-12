@@ -11,7 +11,7 @@ object Day10b extends Challenge {
     def hash(xs: Vector[Int], pos: Int, l: Int): Vector[Int] = l match {
       case x if pos + x >= xs.length =>
         val overflow = pos + x - xs.length
-        val underflow = xs.size - pos
+        val underflow = xs.length - pos
         val seg = (xs.takeRight(underflow) ++ xs.take(overflow)).reverse
         seg.takeRight(overflow) ++ xs.slice(overflow, xs.length - underflow) ++ seg.take(underflow)
       case _ => xs.take(pos) ++ xs.slice(pos, pos + l).reverse ++ xs.takeRight(xs.length - pos - l)
@@ -38,10 +38,10 @@ object Day10b extends Challenge {
     val stream = 0 to 255
     val input: List[Int] = "129,154,49,198,200,133,97,254,41,6,2,1,255,0,191,108".toList
       .map(c => c.toInt) ++ List(17, 31, 73, 47, 23)
-    val sh: List[Int] = sparseHash(stream.toList, input, 0, 0, 64)
-    val denseHash: List[Int] = sh.grouped(16).map(g => g.reduceRight(_ ^ _)).toList
-    val hexString = denseHash.map(c => c.toHexString).map(c => if (c.length == 1) '0' + c else c).mkString
-    println(hexString)
+    val sparse = sparseHash(stream.toList, input, 0, 0, 64)
+    val dense = sparse.grouped(16).map(g => g.reduceRight(_ ^ _)).toList
+    val hex = dense.map(c => c.toHexString).map(c => if (c.length == 1) '0' + c else c).mkString
+    println(hex)
   }
 
 }
