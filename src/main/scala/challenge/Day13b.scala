@@ -8,16 +8,16 @@ import scala.io.Source
 object Day13b extends Challenge {
 
   case class Layer(range: Int) {
-    def passableAt(t: Int): Boolean = range match {
-      case 0 => true
-      case r if t % ((r - 1) * 2) == 0 => false
-      case _ => true
+    def costAt(t: Int): Int = range match {
+      case 0 => 0
+      case r if t % ((r - 1) * 2) == 0 => t * r
+      case _ => 0
     }
   }
 
   @tailrec
   def findWaitTime(t: Int, layers: List[Layer]): Int =
-    if (layers.zipWithIndex.forall(x => x._1.passableAt(t + x._2))) t
+    if (layers.zipWithIndex.forall(x => x._1.costAt(t + x._2) == 0)) t
     else findWaitTime(t + 1, layers)
 
   override def run(): Unit = {
