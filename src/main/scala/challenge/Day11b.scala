@@ -22,7 +22,6 @@ object Day11b extends Challenge {
   def S = Delta(0, -1, "s")
   def SW = Delta(-1, -1, "sw")
   def NW = Delta(-1, 1, "nw")
-
   def DIRECTIONS: Map[String, Delta] = List(N, NE, SE, S, SW, NW).map(d => (d.name, d)).toMap
 
   def locateFarthest(xs: List[String]): Point = {

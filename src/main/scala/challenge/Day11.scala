@@ -18,19 +18,12 @@ object Day11 extends Challenge {
   }
 
   def X = Point(0, 0)
-
   def N = Delta(0, 1, "n")
-
   def NE = Delta(1, 1, "ne")
-
   def SE = Delta(1, -1, "se")
-
   def S = Delta(0, -1, "s")
-
   def SW = Delta(-1, -1, "sw")
-
   def NW = Delta(-1, 1, "nw")
-
   def DIRECTIONS: Map[String, Delta] = List(N, NE, SE, S, SW, NW).map(d => (d.name, d)).toMap
 
   def locate(xs: List[String]): Point = {

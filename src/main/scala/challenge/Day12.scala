@@ -6,7 +6,7 @@ import scala.io.Source
 
 object Day12 extends Challenge {
 
-  case class Vertex(lbl: Int, var visited: Boolean = false)
+  case class Vertex(lbl: Int)
   case class Graph(vertices:Set[Vertex], edges:Set[(Vertex,Vertex)])
 
   def parseEdges(input: String, vertices: Map[Int, Vertex]): List[(Vertex, Vertex)] = {
@@ -27,7 +27,7 @@ object Day12 extends Challenge {
       }
     }
 
-    visit(start, List()).reverse
+    visit(start, List())
   }
 
   override def run(): Unit = {

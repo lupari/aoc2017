@@ -7,7 +7,7 @@ import scala.io.Source
 
 object Day12b extends Challenge {
 
-  case class Vertex(lbl: Int, var visited: Boolean = false)
+  case class Vertex(lbl: Int)
   case class Graph(vertices:Set[Vertex], edges:Set[(Vertex,Vertex)])
 
   def parseEdges(input: String, vertices: Map[Int, Vertex]): List[(Vertex, Vertex)] = {
