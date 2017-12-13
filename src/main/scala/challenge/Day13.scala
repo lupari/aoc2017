@@ -2,7 +2,6 @@ package challenge
 
 import base.Challenge
 
-import scala.annotation.tailrec
 import scala.io.Source
 
 object Day13 extends Challenge {
@@ -15,17 +14,6 @@ object Day13 extends Challenge {
     }
   }
 
-  def traversalCost(xs: List[Layer]): Int = {
-
-    @tailrec
-    def accumulator(pos: Int, acc: Int): Int = pos match {
-      case p if p >= xs.length => acc
-      case _ => accumulator(pos + 1, acc + xs(pos).costAt(pos))
-    }
-
-    accumulator(0, 0)
-  }
-
   override def run(): Unit = {
     val input: Map[Int, Int] = Source.fromResource("day13.txt").getLines()
       .map(s => s.split(": "))
@@ -33,7 +21,8 @@ object Day13 extends Challenge {
       .withDefaultValue(0)
 
     val layers = for (i <- 0 to input.keys.max) yield Layer(input(i))
-    println(traversalCost(layers.toList))
+    val sum: Int = layers.zipWithIndex.foldLeft(0)((a, b) => a + b._1.costAt(b._2))
+    println(sum)
   }
 
 }
