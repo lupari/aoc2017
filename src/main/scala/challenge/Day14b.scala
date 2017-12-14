@@ -51,7 +51,7 @@ object Day14b extends Challenge {
         accumulate(remainder, acc :+ visited)
     }
 
-    val notVisited: List[Square] = grid.flatMap(l => l.filter(s => s.value == '1'))
+    val notVisited: List[Square] = grid.flatMap(_.filter(_.value == '1'))
     accumulate(notVisited, List())
   }
 
@@ -61,10 +61,7 @@ object Day14b extends Challenge {
   }
 
   override def run(): Unit = {
-    val input: List[List[Int]] = (0 to 127)
-      .map("ljoxqyyw-" + _)
-      .map(_.toList.map(_.toInt) ++ List(17, 31, 73, 47, 23))
-      .toList
+    val input: List[List[Int]] = (0 to 127).map("ljoxqyyw-" + _).map(_.toList.map(_.toInt)).toList
     val hashes: List[String] = input.map(Day10b.hash)
     val lines: List[String] = hashes.map(_.map(c => zeroPad(BigInt(c.toString, 16).toInt.toBinaryString)).mkString)
     val grid = lines.zipWithIndex.map(y => y._1.zipWithIndex.map(x => Square(x._2, y._2, x._1)).toList)
