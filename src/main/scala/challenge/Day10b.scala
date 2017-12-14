@@ -42,9 +42,9 @@ object Day10b extends Challenge {
     dense.map(_.toHexString).map(c => if (c.length == 1) '0' + c else c).mkString
   }
 
-  override def run(): Unit = {
+  override def run(): Any = {
     val input: List[Int] = "129,154,49,198,200,133,97,254,41,6,2,1,255,0,191,108".toList.map(_.toInt)
-    println(hash(input))
+    hash(input)
   }
 
 }

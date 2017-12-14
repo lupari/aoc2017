@@ -30,13 +30,13 @@ object Day12 extends Challenge {
     visit(start, List())
   }
 
-  override def run(): Unit = {
+  override def run(): Any = {
     val input: List[String] = Source.fromResource("day12.txt").getLines().toList
     val vertices: Map[Int, Vertex] = input.map(_.takeWhile(!_.isWhitespace))
       .map(i => (i.toInt, Vertex(i.toInt))).toMap
     val edges: List[(Vertex, Vertex)] = input.flatMap(parseEdges(_, vertices))
     val graph: Graph = Graph(vertices.values.toSet, edges.toSet)
-    println(dfs(vertices(0), graph).length)
+    dfs(vertices(0), graph).length
   }
 
 

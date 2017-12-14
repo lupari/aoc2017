@@ -11,9 +11,9 @@ object Day4b extends Challenge {
     sorted.distinct.size == sorted.size
   }
 
-  override def run(): Unit = {
+  override def run(): Any = {
     val input: List[List[String]] = Source.fromResource("day4.txt").getLines.toList.map(_.split(" ").toList)
-    println(input.count(isValid))
+    input.count(isValid)
   }
 
 }

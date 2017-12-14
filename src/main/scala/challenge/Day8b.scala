@@ -37,10 +37,10 @@ object Day8b extends Challenge {
 
   }
 
-  override def run(): Unit = {
+  override def run(): Any = {
     val input: List[String] = Source.fromResource("day8.txt").getLines().toList
     input.map(Inc).foreach(_.exec())
-    println(registry.values.map(v => v._2).max)
+    registry.values.map(v => v._2).max
   }
 
 }

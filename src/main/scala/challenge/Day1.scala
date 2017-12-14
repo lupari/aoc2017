@@ -23,9 +23,9 @@ object Day1 extends Challenge {
     accumulator(xs, 0)
   }
 
-  override def run(): Unit = {
+  override def run(): Any = {
     val input = Source.fromResource("day1.txt").getLines.mkString.toList
-    println(getCaptcha(input))
+    getCaptcha(input)
   }
 
 }

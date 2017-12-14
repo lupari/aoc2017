@@ -1,5 +1,5 @@
 package base
 
 trait Challenge {
-  def run(): Unit
+  def run(): Any
 }

@@ -14,8 +14,8 @@ object Day3 extends Challenge {
     axises.map(a => math.abs(x - a)).min + level / 2
   }
 
-  override def run(): Unit = {
-    println(getDistance(347991))
+  override def run(): Any = {
+    getDistance(347991)
   }
 
 }

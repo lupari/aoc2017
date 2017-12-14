@@ -56,8 +56,8 @@ object Day3b extends Challenge {
     acc(List(1, 1, 2, 4, 5, 10, 11, 23, 25))
   }
 
-  override def run(): Unit = {
-    println(findFirstAbove(347991))
+  override def run(): Any = {
+    findFirstAbove(347991)
   }
 
 }

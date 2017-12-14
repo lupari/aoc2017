@@ -39,9 +39,9 @@ object Day11b extends Challenge {
     accumulator(xs, X, X)
   }
 
-  override def run(): Unit = {
+  override def run(): Any = {
     val input = Source.fromResource("day11.txt").getLines().mkString.split(',').toList
-    println(X.distance(locateFarthest(input)))
+    X.distance(locateFarthest(input))
   }
 
 }

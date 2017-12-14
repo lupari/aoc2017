@@ -74,11 +74,11 @@ object Day7b extends Challenge {
     }
   }
 
-  override def run(): Unit = {
+  override def run(): Any = {
     val input: List[String] = Source.fromResource("day7.txt").getLines().toList
     val tree = buildTree(input)
     weigh(tree)
-    println(findImbalanced(tree).get.weight)
+    findImbalanced(tree).get.weight
 
   }
 

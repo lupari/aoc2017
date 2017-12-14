@@ -20,7 +20,7 @@ object Day13b extends Challenge {
     if (layers.zipWithIndex.forall(x => x._1.costAt(t + x._2) == 0)) t
     else findWaitTime(t + 1, layers)
 
-  override def run(): Unit = {
+  override def run(): Any = {
     val input: Map[Int, Int] = Source.fromResource("day13.txt").getLines()
       .map(_.split(": "))
       .map(a => (a.head.toInt, a.last.toInt)).toMap
@@ -28,7 +28,7 @@ object Day13b extends Challenge {
 
     val layers = for (i <- 0 to input.keys.max) yield Layer(input(i))
 
-    println(findWaitTime(0, layers.toList))
+    findWaitTime(0, layers.toList)
 
   }
 

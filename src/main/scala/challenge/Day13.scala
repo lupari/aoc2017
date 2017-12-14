@@ -14,15 +14,14 @@ object Day13 extends Challenge {
     }
   }
 
-  override def run(): Unit = {
+  override def run(): Any = {
     val input: Map[Int, Int] = Source.fromResource("day13.txt").getLines()
       .map(s => s.split(": "))
       .map(a => (a.head.toInt, a.last.toInt)).toMap
       .withDefaultValue(0)
 
     val layers = for (i <- 0 to input.keys.max) yield Layer(input(i))
-    val sum: Int = layers.zipWithIndex.foldLeft(0)((a, b) => a + b._1.costAt(b._2))
-    println(sum)
+    layers.zipWithIndex.foldLeft(0)((a, b) => a + b._1.costAt(b._2))
   }
 
 }

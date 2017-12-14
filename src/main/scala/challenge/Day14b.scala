@@ -60,12 +60,12 @@ object Day14b extends Challenge {
     case _ => s
   }
 
-  override def run(): Unit = {
-    val input: List[List[Int]] = (0 to 127).map("ljoxqyyw-" + _).map(_.toList.map(_.toInt)).toList
+  override def run(): Any = {
+    val input: List[List[Int]] = (0 to 127).map("ljoxqyyw-" + _).map(_.map(_.toInt).toList).toList
     val hashes: List[String] = input.map(Day10b.hash)
     val lines: List[String] = hashes.map(_.map(c => zeroPad(BigInt(c.toString, 16).toInt.toBinaryString)).mkString)
     val grid = lines.zipWithIndex.map(y => y._1.zipWithIndex.map(x => Square(x._2, y._2, x._1)).toList)
-    println(findDisconnected(grid).length)
+    findDisconnected(grid).length
   }
 
 }

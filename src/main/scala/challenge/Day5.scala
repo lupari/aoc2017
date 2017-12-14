@@ -20,9 +20,9 @@ object Day5 extends Challenge {
     accumulator(xs, 0, 0)
   }
 
-  override def run(): Unit = {
+  override def run(): Any = {
     val input: Vector[Int] = Source.fromResource("day5.txt").getLines.toList.map(_.toInt).toVector
-    println(jumpCount(input))
+    jumpCount(input)
   }
 
 }

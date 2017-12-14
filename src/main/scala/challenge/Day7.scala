@@ -14,12 +14,12 @@ object Day7 extends Challenge {
     Node(name, children)
   }
 
-  override def run(): Unit = {
+  override def run(): Any = {
     val input: List[String] = Source.fromResource("day7.txt").getLines().toList
     val mappings = input.map(parse)
     val children: Set[String] = mappings.flatMap(_.children).toSet
     val all = mappings.map(_.name).toSet
-    println(all.diff(children).toSeq.head)
+    all.diff(children).toSeq.head
   }
 
 }

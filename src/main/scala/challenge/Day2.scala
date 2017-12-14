@@ -18,9 +18,9 @@ object Day2 extends Challenge {
     accumulator(xs, 0)
   }
 
-  override def run(): Unit = {
+  override def run(): Any = {
     val input: List[List[Int]] = Source.fromResource("day2.txt").getLines.toList.map(_.split("\t").map(_.toInt).toList)
-    println(getChecksum(input))
+    getChecksum(input)
   }
 
 }

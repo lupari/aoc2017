@@ -27,9 +27,9 @@ object Day9 extends Challenge {
     accumulator(xs, 0, 0, garbage = false)
   }
 
-  override def run(): Unit = {
+  override def run(): Any = {
     val input: List[Char] = Source.fromResource("day9.txt").getLines().mkString.toList
-    println(readStream(input))
+    readStream(input)
   }
 
 }
