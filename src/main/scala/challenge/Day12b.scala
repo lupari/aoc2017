@@ -47,7 +47,7 @@ object Day12b extends Challenge {
 
   override def run(): Unit = {
     val input: List[String] = Source.fromResource("day12.txt").getLines().toList
-    val vertices: Map[Int, Vertex] = input.map(i => i.takeWhile(c => !c.isWhitespace))
+    val vertices: Map[Int, Vertex] = input.map(i => i.takeWhile(!_.isWhitespace))
       .map(i => (i.toInt, Vertex(i.toInt))).toMap
     val edges: List[(Vertex, Vertex)] = input.flatMap(i => parseEdges(i, vertices))
     val graph: Graph = Graph(vertices.values.toSet, edges.toSet)

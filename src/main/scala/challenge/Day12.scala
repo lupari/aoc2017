@@ -32,9 +32,9 @@ object Day12 extends Challenge {
 
   override def run(): Unit = {
     val input: List[String] = Source.fromResource("day12.txt").getLines().toList
-    val vertices: Map[Int, Vertex] = input.map(_.takeWhile(c => !c.isWhitespace))
+    val vertices: Map[Int, Vertex] = input.map(_.takeWhile(!_.isWhitespace))
       .map(i => (i.toInt, Vertex(i.toInt))).toMap
-    val edges: List[(Vertex, Vertex)] = input.flatMap(i => parseEdges(i, vertices))
+    val edges: List[(Vertex, Vertex)] = input.flatMap(parseEdges(_, vertices))
     val graph: Graph = Graph(vertices.values.toSet, edges.toSet)
     println(dfs(vertices(0), graph).length)
   }

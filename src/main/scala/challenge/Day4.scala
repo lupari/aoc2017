@@ -11,10 +11,8 @@ object Day4 extends Challenge {
   }
 
   override def run(): Unit = {
-    val input: List[List[String]] = Source.fromResource("day4.txt").getLines.toList
-      .map(s => s.split(" ").toList)
-
-    println(input.count(i => isValid(i)))
+    val input: List[List[String]] = Source.fromResource("day4.txt").getLines.toList.map(_.split(" ").toList)
+    println(input.count(isValid))
   }
 
 }

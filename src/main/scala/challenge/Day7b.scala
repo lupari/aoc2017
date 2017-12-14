@@ -12,7 +12,7 @@ object Day7b extends Challenge {
     var totalWeight: Int = 0
 
     def initChildren(xs: Map[String, Program]): Unit = {
-      children = if (childList == "") List() else childList.split(", ").map(c => xs(c)).toList
+      children = if (childList == "") List() else childList.split(", ").map(xs(_)).toList
     }
 
     def withTotalWeight(w: Int): Program = {
@@ -35,15 +35,15 @@ object Day7b extends Challenge {
     }
 
     def parse(s: String): Program = {
-      val name = s.takeWhile(c => c != ' ')
+      val name = s.takeWhile(_ != ' ')
       val weight = "([0-9]+)".r.findFirstIn(s).get.toInt
       val children: String = if (s.contains(" -> ")) s.split(" -> ").last else ""
       Program(name, weight, children)
     }
 
     val programs: List[Program] = input.map(parse)
-    val childNames: Set[String] = programs.map(m => m.childList).flatMap(s => s.split(", ").toList).toSet
-    val allNames = programs.map(m => m.name).toSet
+    val childNames: Set[String] = programs.map(_.childList).flatMap(_.split(", ").toList).toSet
+    val allNames = programs.map(_.name).toSet
     val rootName: String = allNames.diff(childNames).toSeq.head
     val registry: Map[String, Program] = programs.map(p => (p.name, p)).toMap
     loadNodes(registry(rootName), registry)
@@ -53,7 +53,7 @@ object Day7b extends Challenge {
     case p if p.getChildren.isEmpty =>
       p.withTotalWeight(program.weight)
     case p =>
-      p.withTotalWeight(p.weight + p.getChildren.map(c => weigh(c).getTotalWeight).sum)
+      p.withTotalWeight(p.weight + p.getChildren.map(weigh(_).getTotalWeight).sum)
   }
 
 
@@ -62,12 +62,12 @@ object Day7b extends Challenge {
     if (stacks.size == 1) {
       Option.empty
     } else {
-      val parent: Program = stacks.find(s => s._2.size == 1).get._2.head
+      val parent: Program = stacks.find(_._2.size == 1).get._2.head
       val badChild = findImbalanced(parent)
       if (badChild.isDefined) {
         badChild
       } else {
-        val siblingWeight = stacks.find(s => s._2.size > 1).get._2.head.getTotalWeight
+        val siblingWeight = stacks.find(_._2.size > 1).get._2.head.getTotalWeight
         val diff = siblingWeight - parent.getTotalWeight + parent.weight
         Option(Program(parent.name, diff, ""))
       }

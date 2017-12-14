@@ -28,7 +28,7 @@ object Day10 extends Challenge {
 
   override def run(): Unit = {
     val stream = 0 to 255
-    val input = List(129, 154, 49, 198, 200, 133, 97, 254, 41, 6, 2, 1, 255, 0, 191, 108).filter(x => x <= 255)
+    val input = List(129, 154, 49, 198, 200, 133, 97, 254, 41, 6, 2, 1, 255, 0, 191, 108).filter(_ <= 255)
     val hash = createHash(stream.toList, input)
     println(hash.take(2).product)
   }

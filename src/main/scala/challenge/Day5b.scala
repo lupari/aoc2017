@@ -21,8 +21,8 @@ object Day5b extends Challenge {
   }
 
   override def run(): Unit = {
-    val input: Vector[Int] = Source.fromResource("day5.txt").getLines.toList.map(s => s.toInt).toVector
-    println(jumpCount(input, i => if (i > 2) -1 else 1))
+    val input: Vector[Int] = Source.fromResource("day5.txt").getLines.toList.map(_.toInt).toVector
+    println(jumpCount(input, x => if (x > 2) -1 else 1))
   }
 
 }

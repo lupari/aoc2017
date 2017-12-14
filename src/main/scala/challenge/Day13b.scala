@@ -22,7 +22,7 @@ object Day13b extends Challenge {
 
   override def run(): Unit = {
     val input: Map[Int, Int] = Source.fromResource("day13.txt").getLines()
-      .map(s => s.split(": "))
+      .map(_.split(": "))
       .map(a => (a.head.toInt, a.last.toInt)).toMap
       .withDefaultValue(0)
 

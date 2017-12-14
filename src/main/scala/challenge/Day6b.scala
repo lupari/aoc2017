@@ -20,7 +20,7 @@ object Day6b extends Challenge {
       if (history.contains(xs.toList)) history.length - history.indexOf(xs.toList)
       else {
         val max = xs.max
-        val src = xs.zipWithIndex.filter(x => x._1 == max).minBy(x => x._2)
+        val src = xs.zipWithIndex.filter(_._1 == max).minBy(_._2)
         accumulator(distribute(xs.updated(src._2, 0), src._2 + 1, src._1), history :+ xs.toList)
       }
     }

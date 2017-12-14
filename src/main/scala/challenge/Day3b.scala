@@ -16,9 +16,9 @@ object Day3b extends Challenge {
     case `x` if x == min + 1 => "S" // Second of level
     case `x` if x == max - 1 => "BL" // Before last
     case `x` if x == max => "L" // Last
-    case `x` if List(0, 1, 2, 3).map(y => max - y * size).contains(x) => "C" // Corner
-    case `x` if List(0, 1, 2, 3).map(y => max - y * size - 1).contains(x) => "BC" // Before corner
-    case `x` if List(0, 1, 2, 3).map(y => max - y * size + 1).contains(x) => "AC" // After corner
+    case `x` if List(0, 1, 2, 3).map(max - _ * size).contains(x) => "C" // Corner
+    case `x` if List(0, 1, 2, 3).map(max - _ * size - 1).contains(x) => "BC" // Before corner
+    case `x` if List(0, 1, 2, 3).map(max - _ * size + 1).contains(x) => "AC" // After corner
     case _ => "O" // Other
   }
 
@@ -45,9 +45,7 @@ object Day3b extends Challenge {
     val diffIncrement = getIncrement(pos, length, min)
     val diff = diffLevel + diffIncrement
     val neighbors = getNeighbors(pos, diff, category) :+ pos - 1
-    val sum = neighbors.map(n => xs(n)).sum
-    println("evaluating #" + pos + " cat: " + category + " against " + neighbors.map(n => xs(n)) + " => " + sum)
-    sum
+    neighbors.map(xs(_)).sum
   }
 
   def findFirstAbove(limit: Int): Int = {
