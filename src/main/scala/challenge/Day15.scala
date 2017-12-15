@@ -16,15 +16,9 @@ object Day15 extends Challenge {
       stream.drop(1).take(limit).iterator
     }
 
-    val generatorA: Iterator[Int] = generator(a0, 16807)
-    val generatorB: Iterator[Int] = generator(b0, 48271)
+    def lsb(x: Int): String = zeroPad(x.toBinaryString).takeRight(16)
 
-    (1 to limit).count(i => {
-      val a = generatorA.next()
-      val b = generatorB.next()
-      zeroPad(a.toBinaryString).takeRight(16) == zeroPad(b.toBinaryString).takeRight(16)
-    })
-
+    generator(a0, 16807) zip generator(b0, 48271) count(g => lsb(g._1) == lsb(g._2))
   }
 
   override def run(): Any = {
