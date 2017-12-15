@@ -9,15 +9,15 @@ object Day15 extends Challenge {
     case _ => s
   }
 
-  def generate(seed: Int, factor: Int): Stream[Long] = {
-    lazy val generator: Stream[Long] = seed #:: generator.map {x => (x * factor) % 2147483647}
-    generator
-  }
-
   def matchCount(limit: Int, a0: Int, b0: Int): Int = {
 
-    val generatorA: Iterator[Long] = generate(a0, 16807).slice(1, limit + 1).iterator
-    val generatorB: Iterator[Long] = generate(b0, 48271).slice(1, limit + 1).iterator
+    def generator(seed: Int, factor: Int): Iterator[Int] = {
+      lazy val stream: Stream[Int] = seed #:: stream.map(x => ((x.toLong * factor) % 2147483647).toInt)
+      stream.drop(1).take(limit).iterator
+    }
+
+    val generatorA: Iterator[Int] = generator(a0, 16807)
+    val generatorB: Iterator[Int] = generator(b0, 48271)
 
     (1 to limit).count(i => {
       val a = generatorA.next()
