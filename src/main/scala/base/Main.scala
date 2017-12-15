@@ -41,8 +41,10 @@ object Main extends App {
 
   def check(key: String): Unit = {
     val entry = challenges(key)
+    val t0 = System.currentTimeMillis()
     val (result, expected) = (entry._1.run(), entry._2)
-    println("result for " + key + " = " + result)
+    var t1 = System.currentTimeMillis()
+    println("Result for " + key + ":\t" + result + " (executed in " + (t1 - t0) + " ms)")
     assert(result == expected, "Bad test result for key " + key + ", expected " + expected + " but got " + result)
   }
 
