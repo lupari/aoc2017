@@ -2,11 +2,11 @@ package base
 
 import challenge._
 
-
+import scala.collection.immutable.ListMap
 
 object Main extends App {
 
-  def challenges: Map[String, (Challenge, Any)] = Map(
+  def challenges: Map[String, (Challenge, Any)] = ListMap(
     "1" -> (Day1, 1049),
     "1b" -> (Day1b, 1508),
     "2" -> (Day2, 58975),
@@ -34,7 +34,9 @@ object Main extends App {
     "13" -> (Day13, 632),
     "13b" -> (Day13b, 3849742),
     "14" -> (Day14, 8316),
-    "14b" -> (Day14b, 1074)
+    "14b" -> (Day14b, 1074),
+    "15" -> (Day15, 619),
+    "15b" -> (Day15b, 290)
   )
 
   def check(key: String): Unit = {
