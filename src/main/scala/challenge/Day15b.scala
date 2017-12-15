@@ -9,6 +9,8 @@ object Day15b extends Challenge {
     case _ => s
   }
 
+  def ls16(x: Int): String = zeroPad(x.toBinaryString).takeRight(16)
+
   def matchCount(limit: Int, a0: Int, b0: Int): Int = {
 
     def generator(seed: Int, factor: Int)(cond: Int => Boolean): Iterator[Int] = {
@@ -16,9 +18,7 @@ object Day15b extends Challenge {
       stream.drop(1).filter(cond).take(limit).iterator
     }
 
-    def lsb(x: Int): String = zeroPad(x.toBinaryString).takeRight(16)
-
-    generator(a0, 16807)(_ % 4 == 0) zip generator(b0, 48271)(_ % 8 == 0) count(g => lsb(g._1) == lsb(g._2))
+    generator(a0, 16807)(_ % 4 == 0) zip generator(b0, 48271)(_ % 8 == 0) count(g => ls16(g._1) == ls16(g._2))
   }
 
   override def run(): Any = {
