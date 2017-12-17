@@ -13,9 +13,10 @@ object Day17b extends Challenge {
     @tailrec
     def sl(i: Int, pos: Int, acc: Int): Int = {
       val newPos = nextPos(pos, steps, i)
-      if (i == limit) acc
-      else if (newPos == 1) sl(i + 1, newPos, i)
-      else sl(i + 1, newPos, acc)
+      i match {
+        case `limit` => acc
+        case _ => sl(i + 1, newPos, if (newPos == 1) i else acc)
+      }
     }
 
     sl(1, 0, 0)
