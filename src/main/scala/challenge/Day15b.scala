@@ -13,10 +13,9 @@ object Day15b extends Challenge {
 
   def matchCount(limit: Int, a0: Int, b0: Int): Int = {
 
-    def generator(seed: Int, factor: Int)(cond: Int => Boolean): Iterator[Int] = {
-      lazy val stream: Stream[Int] = seed #:: stream.map(x => ((x.toLong * factor) % 2147483647).toInt)
-      stream.drop(1).filter(cond).take(limit).iterator
-    }
+    def generator(seed: Int, factor: Int)(cond: Int => Boolean): Iterator[Int] =
+      Iterator.iterate(seed)(x => ((x.toLong * factor) % 2147483647).toInt)
+        .drop(1).filter(cond).take(limit)
 
     generator(a0, 16807)(_ % 4 == 0) zip generator(b0, 48271)(_ % 8 == 0) count(g => ls16(g._1) == ls16(g._2))
   }
