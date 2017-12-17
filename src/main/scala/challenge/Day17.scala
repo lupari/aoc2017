@@ -5,7 +5,7 @@ import base.Challenge
 object Day17 extends Challenge {
 
   def spin(xs: List[Int], pos: Int, n: Int): (Int, List[Int]) = {
-     val newPos = (n+pos) % xs.length
+     val newPos = (n + pos) % xs.length
      (newPos + 1, xs.take(newPos + 1) ++ List(xs.length) ++ xs.takeRight(xs.length - newPos -1))
   }
 

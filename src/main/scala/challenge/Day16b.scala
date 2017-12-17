@@ -46,28 +46,28 @@ object Day16b extends Challenge {
       hare = f(f(hare))
     }
 
-    var μ = 0
+    var mu = 0
     tortoise = x0
     while (tortoise != hare) {
       tortoise = f(tortoise)
       hare = f(hare)
-      μ += 1
+      mu += 1
     }
 
-    var λ = 1
+    var lambda = 1
     hare = f(tortoise)
     while (tortoise != hare) {
       hare = f(hare)
-      λ += 1
+      lambda += 1
     }
 
-    (μ, λ)
+    (mu, lambda)
   }
 
   def dance(moves: List[String]): Vector[Char] = {
     val programs = ('a' to 'p').toVector
-    val (μ, λ) = floyd(programs, (items: Vector[Char]) => exec(moves, items))
-    (0 until (1000000000 - μ) % λ).foldLeft(programs)((programs, _) => exec(moves, programs).toVector)
+    val (mu, lambda) = floyd(programs, (items: Vector[Char]) => exec(moves, items))
+    (0 until (1000000000 - mu) % lambda).foldLeft(programs)((programs, _) => exec(moves, programs).toVector)
   }
 
   override def run(): Any = {
