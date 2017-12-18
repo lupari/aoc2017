@@ -9,14 +9,9 @@ object Day16b extends Challenge {
 
   def spin(s: String, n: Int): String = s.takeRight(n) + s.take(s.length - n)
 
-  def exchange(s: String, a: Int, b: Int) = {
-    val (x, y) = (s(a), s(b))
-    s.updated(a, y).updated(b, x)
-  }
+  def exchange(s: String, a: Int, b: Int): String = s.updated(a, s(b)).updated(b, s(a))
 
-  def partner(s: String, a: Char, b: Char) = {
-    exchange(s, s.indexOf(a.toString), s.indexOf(b.toString))
-  }
+  def partner(s: String, a: Char, b: Char): String = exchange(s, s.indexOf(a.toString), s.indexOf(b.toString))
 
   def exec(instructions: List[String], seed: Vector[Char]): Vector[Char] = {
 
