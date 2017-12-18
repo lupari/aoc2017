@@ -13,8 +13,8 @@ object Day15 extends Challenge {
 
   def matchCount(limit: Int, a0: Int, b0: Int): Int = {
 
-    def generator(seed: Int, factor: Int): Iterator[Int] = 
-      Iterator.iterate(seed)(x => ((x.toLong * factor) % 2147483647).toInt).drop(1).take(limit)
+    def generator(seed: Int, factor: Int): Iterator[Int] =
+      Iterator.iterate(seed)(x => ((x.toLong * factor) % 2147483647).toInt).slice(1, limit + 1)
 
     generator(a0, 16807) zip generator(b0, 48271) count(g => ls16(g._1) == ls16(g._2))
   }
