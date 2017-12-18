@@ -64,10 +64,10 @@ object Day16b extends Challenge {
     (mu, lambda)
   }
 
-  def dance(moves: List[String]): Vector[Char] = {
-    val programs = ('a' to 'p').toVector
-    val (mu, lambda) = floyd(programs, (items: Vector[Char]) => exec(moves, items))
-    (0 until (1000000000 - mu) % lambda).foldLeft(programs)((programs, _) => exec(moves, programs).toVector)
+  def dance(instructions: List[String]): Vector[Char] = {
+    val seed = ('a' to 'p').toVector
+    val (mu, lambda) = floyd(seed, (items: Vector[Char]) => exec(instructions, items))
+    (0 until (1000000000 - mu) % lambda).foldLeft(seed)((items, _) => exec(instructions, items).toVector)
   }
 
   override def run(): Any = {
