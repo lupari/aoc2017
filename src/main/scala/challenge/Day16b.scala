@@ -32,13 +32,13 @@ object Day16b extends Challenge {
           accumulator(t, partner(acc, parts.head.head, parts.last.last))
         case _ => throw new NoSuchMethodError
       }
-      case Nil => acc
+      case _ => acc
     }
 
     accumulator(instructions, seed.mkString).toVector
   }
 
-  def floyd[A](x0: A, f: A => A): (Int, Int) = {
+  def floyd[A](f: A => A, x0: A): (Int, Int) = {
     var tortoise = f(x0)
     var hare = f(f(x0))
     while (tortoise != hare) {
@@ -66,8 +66,8 @@ object Day16b extends Challenge {
 
   def dance(instructions: List[String]): Vector[Char] = {
     val seed = ('a' to 'p').toVector
-    val (mu, lambda) = floyd(seed, (items: Vector[Char]) => exec(instructions, items))
-    (0 until (1000000000 - mu) % lambda).foldLeft(seed)((items, _) => exec(instructions, items).toVector)
+    val (mu, lambda) = floyd((items: Vector[Char]) => exec(instructions, items), seed)
+    (1 to (1000000000 - mu) % lambda).foldLeft(seed)((items, _) => exec(instructions, items).toVector)
   }
 
   override def run(): Any = {
