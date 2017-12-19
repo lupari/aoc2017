@@ -7,7 +7,6 @@ import scala.io.Source
 
 object Day19b extends Challenge {
 
-
   override def run(): Any = {
     val input: List[List[Char]] = Source.fromResource("day19.txt").getLines().toList.map(_.toList)
     val maxLineWidth = input.map(_.length).max

@@ -42,8 +42,7 @@ object Day19 extends Challenge {
 
     @tailrec
     def accumulator(acc: List[(Square, Delta)]): List[Square] = {
-      val prev: Delta = acc.last._2
-      val square: Square = acc.last._1
+      val (square, prev) = acc.last
       val next = square.nextMove(grid, prev)
       next match {
         case Delta(0, 0) => acc.map(_._1)
