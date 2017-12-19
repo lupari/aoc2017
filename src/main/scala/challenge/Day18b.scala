@@ -22,7 +22,7 @@ object Day18b extends Challenge {
     }
   }
 
-  case class Snd(x: Char, queue: mutable.Queue[Long], id: Int) extends Instruction {
+  case class Snd(x: Char, queue: mutable.Queue[Long]) extends Instruction {
     override def isSnd: Boolean = true
     override def exec(registry: mutable.Map[Char, Long]): Long = {
       queue.enqueue(registry(x))
@@ -58,7 +58,7 @@ object Day18b extends Challenge {
     }
   }
 
-  case class Rcv(x: Char, queue: mutable.Queue[Long], id: Int) extends Instruction {
+  case class Rcv(x: Char, queue: mutable.Queue[Long]) extends Instruction {
 
     override def isRcv: Boolean = true
 
@@ -83,18 +83,16 @@ object Day18b extends Challenge {
       parts.head match {
         case "jgz" => Jump(args._1, args._2)
         case "set" => Set(args._1.head, args._2)
-        case "snd" => Snd(args._1.head, sink, id)
+        case "snd" => Snd(args._1.head, sink)
         case "add" => Add(args._1.head, args._2)
         case "mul" => Mul(args._1.head, args._2)
         case "mod" => Mod(args._1.head, args._2)
-        case "rcv" => Rcv(args._1.head, source, id)
+        case "rcv" => Rcv(args._1.head, source)
       }
     }
 
 
-    def isRunning: Boolean = !instructions(pointer.toInt).isRcv || !source.isEmpty
-
-    def isHalted: Boolean = pointer < 0 || pointer >= instructions.length
+    def isRunning: Boolean = !instructions(pointer.toInt).isRcv || source.nonEmpty
 
     def run(): Unit = {
       val instruction = instructions(pointer.toInt)
@@ -113,10 +111,10 @@ object Day18b extends Challenge {
     val prog2: Program = Program(1, source=queue2, sink=queue1, input)
 
     while (prog1.isRunning || prog2.isRunning) {
-      while (!prog1.isHalted && prog1.isRunning) {
+      while (prog1.isRunning) {
         prog1.run()
       }
-      while (!prog2.isHalted && prog2.isRunning) {
+      while (prog2.isRunning) {
         prog2.run()
       }
     }
