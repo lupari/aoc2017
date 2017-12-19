@@ -20,9 +20,9 @@ object Day19 extends Challenge {
     def +(delta: Delta): (Int, Int) = (x + delta.x, y + delta.y)
 
     def inside(grid: List[List[Square]], d: Delta): Boolean =
-      x + d.x >= 0 && y + d.y >= 0 && y + d.y < grid.length && x + d.x < grid.head.length
+      grid.head.indices.contains(x + d.x) && grid.indices.contains(y + d.y)
 
-    def canMove(grid: List[List[Square]], delta: Delta): Boolean = grid(y + delta.y)(x + delta.x).value != ' '
+    def canMove(grid: List[List[Square]], delta: Delta): Boolean = !grid(y + delta.y)(x + delta.x).value.isWhitespace
 
     def nextMove(grid: List[List[Square]], prev: Delta): Delta = {
       val moves = List(Delta(0, -1), Delta(0, 1), Delta(-1, 0), Delta(1, 0))
@@ -61,7 +61,7 @@ object Day19 extends Challenge {
     val wideInput = input.map(l => l ++ List.fill(maxLineWidth - l.length)(' '))
     val grid = wideInput.zipWithIndex.map(y => y._1.zipWithIndex.map(x => Square(x._2, y._2, x._1)))
     val path: List[Square] = travel(grid)
-    path.filter(s => ('A' to 'Z').contains(s.value)).map(_.value).mkString
+    path.map(_.value).filter(_.isLetter).mkString
   }
 
 }
