@@ -25,11 +25,9 @@ object Day20b extends Challenge {
 
   def parse(line: String): Particle = {
     val pattern(xp, yp, zp, xv, yv, zv, xa, ya, za) = line
-    val coords: (Coordinate, Coordinate, Coordinate) =
-      (Coordinate(xp.toLong, xv.toLong, xa.toLong),
-        Coordinate(yp.toLong, yv.toLong, ya.toLong),
-        Coordinate(zp.toLong, zv.toLong, za.toLong))
-    Particle(coords._1, coords._2, coords._3)
+    val coords: Seq[Coordinate] = Seq(Seq(xp, xv, xa), Seq(yp, yv, ya), Seq(zp, zv, za)).map(_.map(_.toLong))
+      .map(x => Coordinate(x.head, x(1), x.last))
+    Particle(coords.head, coords(1), coords.last)
   }
 
   override def run(): Any = {

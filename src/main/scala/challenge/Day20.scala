@@ -17,9 +17,9 @@ object Day20 extends Challenge {
   def parse(line: String, id: Int): Particle = {
     val pattern = "p=<([-0-9]+),([-0-9]+),([-0-9]+)>, v=<([-0-9]+),([-0-9]+),([-0-9]+)>, a=<([-0-9]+),([-0-9]+),([-0-9]+)>".r
     val pattern(xp, yp, zp, xv, yv, zv, xa, ya, za) = line
-    val coords: (Coordinate, Coordinate, Coordinate) =
-      (Coordinate(xp.toLong, xv.toLong, xa.toLong), Coordinate(yp.toLong, yv.toLong, ya.toLong), Coordinate(zp.toLong, zv.toLong, za.toLong))
-    Particle(id, coords._1, coords._2, coords._3)
+    val coords: Seq[Coordinate] = Seq(Seq(xp, xv, xa), Seq(yp, yv, ya), Seq(zp, zv, za)).map(_.map(_.toLong))
+      .map(s => Coordinate(s.head, s(1), s.last))
+    Particle(id, coords.head, coords(1), coords.last)
   }
 
   override def run(): Any = {
