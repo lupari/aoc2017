@@ -58,15 +58,13 @@ object Main extends App {
     assert(result == expected, "Bad test result for key " + key + ", expected " + expected + " but got " + result)
   }
 
-  if (args.length != 1) {
-    println("wrong number of args")
-  } else {
-    args(0) match {
+  args.toList match {
+    case h :: Nil => h match {
       case "all" => challenges.keys.foreach(check)
       case k if challenges.contains(k) => check(k)
       case _ => println("not found")
     }
+    case _ => println("wrong number of args")
   }
-
 
 }

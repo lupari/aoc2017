@@ -15,7 +15,7 @@ object Day18 extends Challenge {
 
     def isRcv: Boolean = false
 
-    def resolve(arg: String): Long = if (arg.last.isDigit) arg.toInt else registry(arg.last)
+    def resolve(arg: String): Long = if (arg.last.isDigit) arg.toLong else registry(arg.last)
   }
 
   case class Jmp(x: String, y: String) extends Instruction {

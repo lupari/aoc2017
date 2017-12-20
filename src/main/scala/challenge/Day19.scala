@@ -46,7 +46,7 @@ object Day19 extends Challenge {
       val next = square.nextMove(grid, prev)
       next match {
         case Delta(0, 0) => acc.map(_._1)
-        case d => accumulator(acc :+ (lookup(square + d), d))
+        case d => accumulator(acc :+ ((lookup(square + d), d)))
       }
     }
 
