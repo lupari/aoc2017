@@ -10,6 +10,7 @@ object Day21 extends Challenge {
   type Grid = Vector[String]
   type GridList = Vector[Grid]
 
+  // memoization grid -> rule
   val memo: mutable.Map[Grid, Grid] = mutable.Map()
 
   def flip(grid: Grid): GridList = Vector(grid.reverse, grid.map(_.reverse))
