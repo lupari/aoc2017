@@ -48,7 +48,9 @@ object Main extends App {
     "20" -> ((Day20, 308)),
     "20b" -> ((Day20b, 504)),
     "21" -> ((Day21, 133)),
-    "21b" -> ((Day21b, 2221990))
+    "21b" -> ((Day21b, 2221990)),
+    "22" -> ((Day22, 5565)),
+    "22b" -> ((Day22b, 2511978))
   )
 
   def check(key: String): Unit = {
