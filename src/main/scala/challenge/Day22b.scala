@@ -15,16 +15,6 @@ object Day22b extends Challenge {
     def opposite: Delta = Delta(x * -1, y * -1)
   }
 
-  object Delta {
-    def up: Delta = Delta(0, -1)
-
-    def down: Delta = Delta(0, 1)
-
-    def left: Delta = Delta(-1, 0)
-
-    def right: Delta = Delta(1, 0)
-  }
-
   def nextState(c: Char): Char = c match {
     case '.' => 'W'
     case 'W' => '#'
@@ -38,17 +28,17 @@ object Day22b extends Challenge {
       case 'W' => dir
       case 'F' => dir.opposite
       case '.' => dir match {
-        case Delta(0, -1) => Delta.left
-        case Delta(0, 1) => Delta.right
-        case Delta(-1, 0) => Delta.down
-        case Delta(1, 0) => Delta.up
+        case Delta(0, -1) => Delta(-1, 0)
+        case Delta(0, 1) => Delta(1, 0)
+        case Delta(-1, 0) => Delta(0, 1)
+        case Delta(1, 0) => Delta(0, -1)
         case _ => throw new NoSuchElementException
       }
       case '#' => dir match {
-        case Delta(0, -1) => Delta.right
-        case Delta(0, 1) => Delta.left
-        case Delta(-1, 0) => Delta.up
-        case Delta(1, 0) => Delta.down
+        case Delta(0, -1) => Delta(1, 0)
+        case Delta(0, 1) => Delta(-1, 0)
+        case Delta(-1, 0) => Delta(0, -1)
+        case Delta(1, 0) => Delta(0, 1)
         case _ => throw new NoSuchElementException
       }
       case _ => throw new NoSuchElementException
@@ -71,7 +61,7 @@ object Day22b extends Challenge {
     ).toMap
     val startPos = Position(grid.keys.map(_.x).max / 2, grid.keys.map(_.y).max / 2)
 
-    accumulator(startPos, Delta.up, 0, 0, grid.withDefaultValue('.'))
+    accumulator(startPos, Delta(0, -1), 0, 0, grid.withDefaultValue('.'))
   }
 
   override def run(): Any = {

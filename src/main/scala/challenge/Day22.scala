@@ -12,23 +12,13 @@ object Day22 extends Challenge {
   }
   case class Delta(x: Int, y: Int)
 
-  object Delta {
-    def up: Delta = Delta(0, -1)
-
-    def down: Delta = Delta(0, 1)
-
-    def left: Delta = Delta(-1, 0)
-
-    def right: Delta = Delta(1, 0)
-  }
-
   def spread(input: List[List[Char]], limit: Int): Int = {
 
     def nextDir(dir: Delta, isClean: Boolean): Delta = dir match {
-      case Delta(0, -1) => if (isClean) Delta.left else Delta.right
-      case Delta(0, 1) => if (isClean) Delta.right else Delta.left
-      case Delta(-1, 0) => if (isClean) Delta.down else Delta.up
-      case Delta(1, 0) => if (isClean) Delta.up else Delta.down
+      case Delta(0, -1) => if (isClean) Delta(-1, 0) else Delta(1, 0)
+      case Delta(0, 1) => if (isClean) Delta(1, 0) else Delta(-1, 0)
+      case Delta(-1, 0) => if (isClean) Delta(0, 1) else Delta(0, -1)
+      case Delta(1, 0) => if (isClean) Delta(0, -1) else Delta(0, 1)
       case _ => throw new NoSuchElementException
     }
 
@@ -49,7 +39,7 @@ object Day22 extends Challenge {
     ).toMap
     val startPos = Position(grid.keys.map(_.x).max / 2, grid.keys.map(_.y).max / 2)
 
-    accumulator(startPos, Delta.up, 0, 0, grid.withDefaultValue(true))
+    accumulator(startPos, Delta(0, -1), 0, 0, grid.withDefaultValue(true))
   }
 
   override def run(): Any = {
