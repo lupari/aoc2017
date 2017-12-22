@@ -42,13 +42,16 @@ object Day22b extends Challenge {
         case Delta(0, 1) => Delta.right
         case Delta(-1, 0) => Delta.down
         case Delta(1, 0) => Delta.up
+        case _ => throw new NoSuchElementException
       }
       case '#' => dir match {
         case Delta(0, -1) => Delta.right
         case Delta(0, 1) => Delta.left
         case Delta(-1, 0) => Delta.up
         case Delta(1, 0) => Delta.down
+        case _ => throw new NoSuchElementException
       }
+      case _ => throw new NoSuchElementException
     }
 
     @tailrec
