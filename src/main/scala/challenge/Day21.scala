@@ -67,7 +67,7 @@ object Day21 extends Challenge {
   def execute(limit: Int): Int = {
     val input: List[String] = Source.fromResource("day21.txt").getLines.toList
     val transformations: Map[Grid, Grid] = input.map(parse).toMap
-    val result: Grid = (1 to limit).zipWithIndex.foldLeft(Grid(Vector(".#.", "..#", "###")))((a, b) => {
+    val result: Grid = (1 to limit).foldLeft(Grid(Vector(".#.", "..#", "###")))((a, _) => {
       val replacements: GridList = a.divide().map(transform(_, transformations))
       join(replacements)
     })
