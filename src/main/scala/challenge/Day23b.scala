@@ -4,8 +4,8 @@ import base.Challenge
 
 object Day23b extends Challenge {
 /*
-   Here's the reasoning behind the optimized program
-
+  |Here's the reasoning behind the optimized program
+  |
   |set b 65
   |set c b
   |jnz a 2
@@ -51,13 +51,13 @@ object Day23b extends Challenge {
   |    do
   |        e = 2
   |        do
-  |            g = d * e -b
+  |            g = d * e - b
   |            if (g == 0)
   |                f = 0
   |            e = e + 1
   |            g = e - b
   |        while g != 0
-  |        d = d+1
+  |        d = d + 1
   |        g = d - b
   |    while g != 0
   |    if (f != 0)
