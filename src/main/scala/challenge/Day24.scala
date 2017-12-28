@@ -14,29 +14,27 @@ object Day24 extends Challenge {
     }
   }
 
-  def contains(components: List[Component], ports: (Int, Int)): Boolean =
-    (components.map(c => (c.p1, c.p2)) ++ components.map(c => (c.p2, c.p1))).contains(ports)
+  def contains(components: List[Component], ports: (Int, Int)): Boolean = {
+    val a = components.map(c => (c.p1, c.p2))
+    a.contains(ports) || a.contains((ports._2, ports._1))
+  }
 
-  def dfs(start: Component, components: List[(Int, Int)]): List[List[Component]] = {
+  def dfs(components: List[(Int, Int)]): List[List[Component]] = {
 
     def visit(component: Component, visited: List[Component], acc: List[List[Component]]): List[List[Component]] = {
-      val adjacent = components.filterNot(contains(visited, _)).filter(component.bind(_).isDefined)
+      val adjacent = components.filterNot(contains(visited, _)).map(component.bind).filter(_.isDefined).map(_.get)
       if (adjacent.isEmpty) acc :+ visited
-      else {
-        adjacent.flatMap(a => {
-          val next = component.bind(a).get
-          visit(next, visited :+ next, acc)
-        })
-      }
+      else adjacent.flatMap(a => visit(a, visited :+ a, acc))
     }
 
+    val start = Component(0, 0, 0)
     visit(start, List(start), List())
   }
 
   override def run(): Any = {
     val input: List[String] = Source.fromResource("day24.txt").getLines.toList
     val components: Set[(Int, Int)] = input.map(_.split("/").map(_.toInt)).map(x => (x.head, x.last)).toSet
-    val paths: List[List[Component]] = dfs(Component(0, 0, 0), components.toList)
+    val paths: List[List[Component]] = dfs(components.toList)
     paths.map(l => l.map(c => c.p1 + c.p2).sum).max
   }
 
