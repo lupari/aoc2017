@@ -34,10 +34,9 @@ object Day25 extends Challenge {
             else accumulator(i + 1, pos + 1, 'a', tape + (pos -> true))
           case _ => throw new NoSuchElementException
         }
-
     }
 
-    accumulator(0, 'a', 0, Map().withDefaultValue(false))
+    accumulator(0, 0, 'a', Map().withDefaultValue(false))
 
   }
 

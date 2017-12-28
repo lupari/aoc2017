@@ -6,24 +6,38 @@ import scala.io.Source
 
 object Day24 extends Challenge {
 
-  case class Bridge(components: List[(Int, Int)], last: Int) {
-    def bind(c: (Int, Int)): Option[Bridge] = c match {
-      case (p1, p2) if p1 == last => Some(Bridge(c :: components, p2))
-      case (p1, p2) if p2 == last => Some(Bridge(c :: components, p1))
+  case class Component(p1: Int, p2: Int, ending: Int) {
+    def bind(ports: (Int, Int)): Option[Component] = ports match {
+      case (a, b) if a == ending => Some(Component(a, b, b))
+      case (a, b) if b == ending => Some(Component(a, b, a))
       case _ => None
     }
   }
 
-  def allBridges(components: Set[(Int, Int)], acc: Bridge): Iterator[Bridge] = {
-    val bridges = components.toIterator.flatMap(acc.bind)
-    if (bridges.isEmpty) Iterator(acc)
-    else bridges.flatMap(b => allBridges(components - b.components.head, b))
+  def contains(components: List[Component], ports: (Int, Int)): Boolean =
+    (components.map(c => (c.p1, c.p2)) ++ components.map(c => (c.p2, c.p1))).contains(ports)
+
+  def dfs(start: Component, components: List[(Int, Int)]): List[List[Component]] = {
+
+    def visit(component: Component, visited: List[Component], acc: List[List[Component]]): List[List[Component]] = {
+      val adjacent = components.filterNot(contains(visited, _)).filter(component.bind(_).isDefined)
+      if (adjacent.isEmpty) acc :+ visited
+      else {
+        adjacent.flatMap(a => {
+          val next = component.bind(a).get
+          visit(next, visited :+ next, acc)
+        })
+      }
+    }
+
+    visit(start, List(start), List())
   }
 
   override def run(): Any = {
     val input: List[String] = Source.fromResource("day24.txt").getLines.toList
     val components: Set[(Int, Int)] = input.map(_.split("/").map(_.toInt)).map(x => (x.head, x.last)).toSet
-    allBridges(components, Bridge(Nil, 0)).map(_.components.map(x => x._1 + x._2)).map(_.sum).max
+    val paths: List[List[Component]] = dfs(Component(0, 0, 0), components.toList)
+    paths.map(l => l.map(c => c.p1 + c.p2).sum).max
   }
 
 
