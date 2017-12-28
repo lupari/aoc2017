@@ -21,14 +21,14 @@ object Day24 extends Challenge {
 
   def dfs(components: List[(Int, Int)]): List[List[Component]] = {
 
-    def visit(component: Component, visited: List[Component], acc: List[List[Component]]): List[List[Component]] = {
+    def visit(component: Component, visited: List[Component]): List[List[Component]] = {
       val adjacent = components.filterNot(contains(visited, _)).map(component.bind).filter(_.isDefined).map(_.get)
-      if (adjacent.isEmpty) acc :+ visited
-      else adjacent.flatMap(a => visit(a, visited :+ a, acc))
+      if (adjacent.isEmpty) List(visited)
+      else adjacent.flatMap(a => visit(a, visited :+ a))
     }
 
     val start = Component(0, 0, 0)
-    visit(start, List(start), List())
+    visit(start, List(start))
   }
 
   override def run(): Any = {
