@@ -15,18 +15,17 @@ object Day24 extends Challenge {
   }
 
   def contains(components: List[Component], ports: (Int, Int)): Boolean =
-    components.find(c => (c.p1, c.p2) == ports || (c.p2, c.p1) == ports).isDefined
-  
+    components.exists(c => (c.p1, c.p2) == ports || (c.p2, c.p1) == ports)
+
   def dfs(components: List[(Int, Int)]): List[List[Component]] = {
 
-    def visit(component: Component, visited: List[Component]): List[List[Component]] = {
-      val adjacent = components.filterNot(contains(visited, _)).flatMap(component.bind)
+    def visit(visited: List[Component]): List[List[Component]] = {
+      val adjacent = components.filterNot(contains(visited, _)).flatMap(visited.last.bind)
       if (adjacent.isEmpty) List(visited)
-      else adjacent.flatMap(a => visit(a, visited :+ a))
+      else adjacent.flatMap(a => visit(visited :+ a))
     }
 
-    val start = Component(0, 0, 0)
-    visit(start, List(start))
+    visit(List(Component(0, 0, 0)))
   }
 
   override def run(): Any = {
