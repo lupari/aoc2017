@@ -11,8 +11,8 @@ object Day11b extends Challenge {
   case class Point(x: Int, y: Int) {
     def +(delta: Delta): Point = Point(x + delta.x, y + delta.y)
     def distance(p: Point): Int =
-      if (x * y < 0) math.abs(x - p.x) + math.abs(y - p.y)
-      else List(math.abs(x - p.x), math.abs(y - p.y)).max
+      if (x * y < 0) (x - p.x).abs + (y - p.y).abs
+      else List((x - p.x).abs, (y - p.y).abs).max
   }
 
   def X = Point(0, 0)

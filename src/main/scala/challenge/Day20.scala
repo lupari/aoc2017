@@ -11,7 +11,7 @@ object Day20 extends Challenge {
   case class Particle(id: Int, x: Coordinate, y: Coordinate, z: Coordinate) {
     def displacement(t: Int, c: Coordinate): Long = c.v * t + (0.5 * c.a * t * t).toLong
 
-    def distance(t: Int): Long = List(x, y, z).map(c => c.p + displacement(t, c)).map(math.abs).sum
+    def distance(t: Int): Long = List(x, y, z).map(c => c.p + displacement(t, c)).map(_.abs).sum
   }
 
   def parse(line: String, id: Int): Particle = {

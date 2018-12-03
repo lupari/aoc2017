@@ -13,7 +13,8 @@ object Day18b extends Challenge {
     def isRcv: Boolean = false
     def isSnd: Boolean = false
 
-    def resolve(arg: String, registry: mutable.Map[Char, Long]): Long = if (arg.last.isDigit) arg.toLong else registry(arg.last)
+    def resolve(arg: String, registry: mutable.Map[Char, Long]): Long = 
+      if (arg.last.isDigit) arg.toLong else registry(arg.last)
   }
 
   case class Jump(x: String, y: String) extends Instruction {
@@ -72,7 +73,9 @@ object Day18b extends Challenge {
     }
   }
 
-  case class Program(id: Int, source: mutable.Queue[Long], sink: mutable.Queue[Long], input: List[String], var pointer: Long = 0) {
+  case class Program(id: Int, source: mutable.Queue[Long], sink: mutable.Queue[Long], 
+    input: List[String], var pointer: Long = 0) {
+    
     val registry: mutable.Map[Char, Long] = mutable.Map[Char, Long]('p' -> id.toLong).withDefaultValue(0)
     var sendCount: Int = 0
     val instructions: List[Instruction] = input.map(parse)
